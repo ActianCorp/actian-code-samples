@@ -46,7 +46,6 @@ public class iidbdb
             catch(SQLException sqlExpn)
             {
                 sqlExpn.printStackTrace();
-
             }
         }
     }
