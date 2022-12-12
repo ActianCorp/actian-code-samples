@@ -1,6 +1,6 @@
 import java.sql.*;
 
-public class iidbdb
+public class getdbs
 {
     static final String DRIVER = "com.ingres.jdbc.IngresDriver";
     static final String CONNST = "jdbc:ingres://SERVER:PORT/iidbdb;UID=USERNAME;PWD=PASSWORD";
@@ -14,7 +14,6 @@ public class iidbdb
         
         try
         {
-            Class.forName(DRIVER);
             connection = DriverManager.getConnection(CONNST);
 
             qry = "select database_name from iidatabase_info";
