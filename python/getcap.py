@@ -1,7 +1,11 @@
 # Requires installation of pyodbc package prior to execution.
+# If package pyodbc is not found, code will attempt to use package pypyodbc.
 
 import sys
-import pyodbc
+try:
+    import pyodbc as odbcpkg
+except ModuleNotFoundError:
+    import pypyodbc as odbcpkg
 
 if len(sys.argv) < 2:
     print("\nPlease provide connection URL surrounded by double-quotes. e.g.\n")
@@ -9,7 +13,7 @@ if len(sys.argv) < 2:
     quit()
 
 url = sys.argv[1]
-cnxn = pyodbc.connect(url)
+cnxn = odbcpkg.connect(url)
 cursor = cnxn.cursor()
 cursor.execute("select cap_capability, cap_value from iidbcapabilities")
 rs = cursor.fetchall()
