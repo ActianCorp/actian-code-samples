@@ -4,4 +4,10 @@ Actian sample code, scripts, and other examples for Avalanche, Vector, Vector-H,
 
 See:
 
+  * [golang](golang) example
+  * [hibernate](hibernate) example
+  * [jdbc](jdbc) example
   * [php](php) example
+  * [python](python) example
+  * [rust](rust) example
+
