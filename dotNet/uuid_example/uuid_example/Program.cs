@@ -1,6 +1,6 @@
 ﻿using Ingres.Client;
 
-var ConnectionString = Environment.GetEnvironmentVariable("DOTNET_TEST_CONNECTIONSTRING");
+var ConnectionString = Environment.GetEnvironmentVariable("DOTNET_CONNECTION_STRING");
 if (ConnectionString == string.Empty)
 {
     // Sample connection string:
