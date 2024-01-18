@@ -10,4 +10,5 @@ See:
   * [php](php) example
   * [python](python) example
   * [rust](rust) example
+  * [sqlalchemy](sqlalchemy) example
 
