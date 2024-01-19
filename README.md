@@ -9,7 +9,7 @@ See:
   * [jdbc](jdbc) example
   * [php](php) example
   * python
-    * [pyodbc](pyodbc) example
-    * [sqlalchemy](sqlalchemy) example
+    * [pyodbc](python/pyodbc) example
+    * [sqlalchemy](python/sqlalchemy) example
   * [rust](rust) example
 
