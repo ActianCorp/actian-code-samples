@@ -1,51 +1,38 @@
-# Example SQLAlchemy ORM program that uses the Ingres dialect.
-#
-# The code creates table "Employees" (drops/recreates if exists),
-#  adds rows to the table, updates a row, deletes a row,
-#  queries and prints the rows after each operation.
-#
-# Environment variables:
-#   SQLALCHEMY_INGRES_ODBC_DRIVER_NAME - Name of Ingres ODBC driver, required
-#   DEMO_DB - Name of database to use, required
-#   DEMO_ID - Userid for connecting, optional
-#   DEMO_PW - Password for connecting, optional
-#   Note: DEMO_ID and DEMO_PW will only be used if both are set.
-#
-# Code is partly modeled after the tutorial in video:
-#   "SQLAlchemy Turns Python Objects Into Database Entries"
-#    by NeuralNine at:  https://www.youtube.com/watch?v=AKQ3XEDI9Mw
-#
-# Code tested with these Python packages:
-#   SQLAlchemy        2.0.25
-#   ingres_sa_dialect 0.4
-#   pypyodbc          1.3.6
-#   setuptools        63.2.0
+import os
+import sys
 
-import os, sys
-from sqlalchemy import create_engine, ForeignKey, Column, String, Integer, CHAR, update, delete
+from sqlalchemy import (
+    CHAR,
+    Column,
+    ForeignKey,
+    Integer,
+    String,
+    create_engine,
+    delete,
+    update,
+)
 from sqlalchemy.orm import Session, declarative_base
 
-def get_connection_url():
 
+def get_connection_url():
     if "DEMO_DB" in os.environ:
         db = os.getenv("DEMO_DB")
     else:
-        print("Please set environment variable DEMO_DB to the name of an existing database.")
-        sys.exit()
+        sys.exit("Please set environment variable DEMO_DB to the name of an existing database.")
 
-    if ( "DEMO_ID" in os.environ and "DEMO_PW" in os.environ ):
+    if "DEMO_ID" in os.environ and "DEMO_PW" in os.environ:
         id = os.getenv("DEMO_ID")
         pw = os.getenv("DEMO_PW")
     else:
-        id = "" 
+        id = ""
         pw = ""
 
-    if ( id and pw ):
+    if id and pw:
         creds = id + ":" + pw + "@"
     else:
         creds = ""
 
-    url = "ingres://"+creds+"/"+db
+    url = "ingres://" + creds + "/" + db
 
     return url
 
@@ -53,6 +40,7 @@ def get_connection_url():
 # Main
 
 Base = declarative_base()
+
 
 class Person(Base):
     __tablename__ = "employees"
@@ -71,6 +59,7 @@ class Person(Base):
 
     def __repr__(self):
         return f"({self.ssn}) {self.fname} {self.lname} ({self.gender},{self.age})"
+
 
 print("Creating connection")
 url = get_connection_url()
@@ -101,7 +90,7 @@ results = session.query(Person).all()
 print(results)
 
 print("Updating 1 row")
-stmt = update(Person).where(Person.ssn==54321).values(lname="Plum")
+stmt = update(Person).where(Person.ssn == 54321).values(lname="Plum")
 session.execute(stmt)
 
 session.commit()
@@ -110,11 +99,10 @@ results = session.query(Person).all()
 print(results)
 
 print("Deleting 1 row")
-stmt = delete(Person).where(Person.ssn==98765)
+stmt = delete(Person).where(Person.ssn == 98765)
 session.execute(stmt)
 
 session.commit()
 
 results = session.query(Person).all()
 print(results)
-
