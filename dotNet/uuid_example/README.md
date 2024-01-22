@@ -8,7 +8,5 @@ e.g: DOTNET_CONNECTION_STRING=Server=myserver;Port=II7;Database=mydb;User ID=ing
 
 To run the test application in Visual Studio 2022 start from a Command Prompt: 
 
-```
-set DOTNET_CONNECTION_STRING=...
-start uuid_example.sln
-```
+    set DOTNET_CONNECTION_STRING=...
+    start uuid_example.sln
