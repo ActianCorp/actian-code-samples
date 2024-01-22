@@ -8,6 +8,8 @@ See:
   * [hibernate](hibernate) example
   * [jdbc](jdbc) example
   * [php](php) example
-  * [python](python) example
+  * [python](python) examples
+    * [pyodbc](python/pyodbc) example
+    * [sqlalchemy](python/sqlalchemy) example
   * [rust](rust) example
 

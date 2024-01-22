@@ -1,0 +1,4 @@
+SQLAlchemy >= 2.0.25
+-e git+https://github.com/ActianCorp/ingres_sa_dialect.git # release >= 0.4
+pypyodbc
+setuptools
