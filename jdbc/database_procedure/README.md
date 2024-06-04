@@ -2,23 +2,23 @@
 
 ### Steps to set up environment and run example
 
-1. Open an Ingres command prompt  
+(1) Open an Ingres command prompt  
 
-2. Create a new database, e.g. `createdb airdb`  
+(2) Create a new database, e.g. `createdb airdb`  
 
-3. Create and populate database table using Ingres Terminal Monitor  
+(3) Create and populate database table using Ingres Terminal Monitor  
 
     sql airdb < create_airline_insert_data.sql
 
-4. Create database procedure using Ingres Terminal Monitor  
+(4) Create database procedure using Ingres Terminal Monitor  
 
     sql airdb < create_db_procedure.sql
 
-5. Ensure the Java environment is configured and compile the Java program  
+(5) Ensure the Java environment is configured and compile the Java program  
 
     javac getAirlines.java
 
-6. Set environment variables used by the Java program to connect to the database  
+(6) Set environment variables used by the Java program to connect to the database  
 
 e.g.  
  
@@ -30,11 +30,11 @@ Alternate example URL:
 
     JDBC_URL=jdbc:ingres://testmachine01.testdomain.com:VW7/airdb
    
-7. Run the Java program with no parameters to see country codes  
+(7) Run the Java program with no parameters to see country codes  
 
     java getAirlines
 
-8. Run the Java program, passing a valid country code  
+(8) Run the Java program, passing a valid country code  
 
     java getAirlines US
 
