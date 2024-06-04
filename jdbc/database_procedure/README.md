@@ -4,7 +4,11 @@
 
 (1) Open an Ingres command prompt  
 
-(2) Create a new database, e.g. `createdb airdb`  
+(2) Create a new database  
+
+e.g.  
+
+    createdb airdb
 
 (3) Create and populate database table using Ingres Terminal Monitor  
 
