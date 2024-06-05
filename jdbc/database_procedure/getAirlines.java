@@ -28,15 +28,19 @@ public class getAirlines
 		System.exit(1);
 	    }
         }
-        catch(SQLException sqlex) {
-            printMsg("Error Code: " + sqlex.getErrorCode());
-            printMsg("SQL State: " + sqlex.getSQLState());
-            printMsg("Error Messsage: " + sqlex.getMessage());
+        catch(Exception ex) {
+            printMsg("Error Messsage: " + ex.getMessage());
         }
     }
 
     public static void printMsg(String msg) {
 	System.out.println(msg);
+    }
+
+    public static void printSQLException(SQLException sqlex) {
+        printMsg("Error Code: " + sqlex.getErrorCode());
+        printMsg("SQL State: " + sqlex.getSQLState());
+        printMsg("Error Messsage: " + sqlex.getMessage());
     }
 
     public static void getCountryArgument(String[] args) {
@@ -67,9 +71,7 @@ public class getAirlines
             }
         }
         catch(SQLException sqlex) {
-            printMsg("Error Code: " + sqlex.getErrorCode());
-            printMsg("SQL State: " + sqlex.getSQLState());
-            printMsg("Error Messsage: " + sqlex.getMessage());
+            printSQLException(sqlex);
         }
         catch(Exception ex) {
             printMsg("Error Messsage: " + ex.getMessage());
@@ -81,9 +83,7 @@ public class getAirlines
                 connection.close();
             }
             catch(SQLException sqlex) {
-                printMsg("Error Code: " + sqlex.getErrorCode());
-                printMsg("SQL State: " + sqlex.getSQLState());
-                printMsg("Error Messsage: " + sqlex.getMessage());
+                printSQLException(sqlex);
             }
         }
     }
