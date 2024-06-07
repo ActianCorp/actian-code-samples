@@ -27,7 +27,7 @@ If you prefer to use a new or existing database other than `demodb`, then do the
         sql airdb < create_airline_insert_data.sql
 
 
-_The remaining instructions assumes that your database name is `demodb`. If you are using a different database, use that name accordingly._
+_The remaining instructions assume that your database name is `demodb`. If you are using a different database, use that name accordingly._
 
 ### Remaining steps that apply to any database situation from the above actions
 
@@ -61,7 +61,7 @@ If an error occurs in regard to lack of permissions accessing the procedure, you
 
 e.g. (using Terminal Monitor)  
 
-    GRANT ALL ON PROCEDURE get_airlines_by_country TO PUBLIC \g
+    GRANT EXECUTE ON PROCEDURE get_airlines_by_country TO PUBLIC \g
 
 ### Configurations that were used for testing the above steps
 
