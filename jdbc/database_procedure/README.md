@@ -62,6 +62,7 @@ If an error occurs in regard to lack of permissions accessing the procedure, you
 e.g. (using Terminal Monitor)  
 
     GRANT EXECUTE ON PROCEDURE get_airlines_by_country TO PUBLIC \g
+    COMMIT \g
 
 ### Configurations that were used for testing the above steps
 
