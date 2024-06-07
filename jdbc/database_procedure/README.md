@@ -1,6 +1,6 @@
 ## Example JDBC program that calls a database procedure and receives results
 
-### Use existing Actian demonstration database or create a new database
+### Use existing Actian demonstration database or an alternate database
 
 #### Actian demonstration database
 
