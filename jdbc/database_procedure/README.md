@@ -1,44 +1,57 @@
 ## Example JDBC program that calls a database procedure and receives results
 
-### Steps to set up environment and run example
+### Use existing Actian demonstration database or an alternate database
 
-**(1)** Open an Ingres command prompt  
+#### Actian demonstration database
 
-**(2)** Create a new database  
+Actian Ingres provides a [demonstration database](https://docs.actian.com/actianx/12.0/index.html#page/QuickStart_Linux/Creating_a_Database.htm#ww306790) called `demodb` that is used with these instructions.
 
-e.g.  
+If your Ingres DBMS does not contain the Actian demodb database, it can be created with scripts available with your Ingres installation.
 
-    createdb airdb
+For [Linux](https://docs.actian.com/actianx/12.0/index.html#page/QuickStart_Linux/Requirements_for_the_Demonstration_Application.htm
+), the scripts are located in `$II_SYSTEM/ingres/demo/data`  
 
-**(3)** Create and populate database table using Ingres Terminal Monitor  
+For [Windows](https://docs.actian.com/actianx/12.0/index.html#page/QuickStart_Win/Requirements_for_the_Demonstration_Application.htm
+), the scripts are located in `%II_SYSTEM%\ingres\demo\data`  
 
-    sql airdb < create_airline_insert_data.sql
+Use the script `recreatedemodb.bat` to create the `demodb` database and populate the tables.
 
-**(4**) Create database procedure using Ingres Terminal Monitor  
+#### Optional: Use a different database
 
-    sql airdb < create_db_procedure.sql
+If you prefer to use a new or existing database other than `demodb`, then do the following:
 
-**(5)** Ensure the Java environment is configured and compile the Java program  
+- Open an Ingres command prompt
+- If creating a new database:  `createdb airdb` _(the database name can be of your choosing)_
+- Create and populate the database table used for this example. The Ingres Terminal Monitor script `create_airline_insert_data.sql` is provided alongside these instructions. Note that this script creates only the one table required for the JDBC/procedure demo and does not create the entire `demodb` database as described in the previous steps.  
+
+        sql airdb < create_airline_insert_data.sql
+
+
+_The remaining instructions assume that your database name is `demodb`. If you are using a different database, use that name accordingly._
+
+### Remaining steps that apply to any database situation from the above actions
+
+#### Create database procedure using Ingres Terminal Monitor
+
+    sql demodb < create_db_procedure.sql
+
+#### Ensure the Java environment is configured and compile the Java program
 
     javac getAirlines.java
 
-**(6)** Set environment variables used by the Java program to connect to the database  
+#### Set environment variables used by the Java program to connect to the database
 
-e.g.  
- 
+e.g.
+
     JDBC_UID=testuid
     JDBC_PWD=testpwd
-    JDBC_URL=jdbc:ingres://localhost:II7/airdb
+    JDBC_URL=jdbc:ingres://localhost:II7/demodb
 
-Alternate example URL:  
-
-    JDBC_URL=jdbc:ingres://testmachine01.testdomain.com:VW7/airdb
-   
-**(7)** Run the Java program with no parameters to see country codes  
+#### Run the Java program with no parameters to see country codes
 
     java getAirlines
 
-**(8)** Run the Java program, passing a valid country code  
+#### Run the Java program, passing a valid country code
 
     java getAirlines US
 
