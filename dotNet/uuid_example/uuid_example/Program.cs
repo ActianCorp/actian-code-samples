@@ -1,12 +1,13 @@
 ﻿using Ingres.Client;
 
 var ConnectionString = Environment.GetEnvironmentVariable("DOTNET_CONNECTION_STRING");
-if (ConnectionString == string.Empty)
+if (ConnectionString == null || ConnectionString == string.Empty)
 {
     // Sample connection string:
     // ConnectionString = "Server=myserver;Port=II7;Database=mydb;User ID=ingres;Password=ca-ingres";
 
     Console.WriteLine("Please provide a valid connection string via the DOTNET_CONNECTION_STRING environment variable!");
+    Console.WriteLine("DOTNET_CONNECTION_STRING=Server=myserver;Port=II7;Database=mydb;User ID=ingres;Password=ca-ingres");
     Environment.Exit(0);
 }
 var conn = new IngresConnection(ConnectionString);
