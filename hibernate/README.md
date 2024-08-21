@@ -3,6 +3,7 @@
 ### Required Tools
  - Apache Maven - https://maven.apache.org/download.cgi?.
  - JDK 11, 17, or 21 - [Oracle OpenJDK Builds](https://jdk.java.net/)
+ - Actian Data Platform Client Runtime (with appropriately set CLASSPATH to use the iijdbc.jar)
  - See pom.xml for additional information on tools and versions.
 
 ### Example Configuration
