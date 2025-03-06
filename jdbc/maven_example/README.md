@@ -10,8 +10,8 @@ For Linux, use appropriate settings for the environment variables.
 
 ### Requirements
 
- - JDK 1.8 (or later) installed
- - Apache Maven installed
+ - JDK 1.8 (or later)
+ - Apache Maven
  - Access to an existing Actian database (Ingres, Vector, Data Platform)
 
 If needed, see these pages to download and install the latest version of Apache Maven
