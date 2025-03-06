@@ -56,7 +56,7 @@ After the maven build is finished, the class file and JDBC driver can be found u
 
 ### Run the JDBC Program
 
-Change to the directory target\classes and run the Java program:
+Change to the directory `target\classes` and run the Java program:
 
      java dbmsVersion
 
