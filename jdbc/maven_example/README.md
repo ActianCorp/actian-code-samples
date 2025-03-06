@@ -46,12 +46,11 @@ After the maven build is finished, the class file and JDBC driver can be found u
 
 ### Set Environment Variables
 
- - Set the CLASSPATH environment variable
-   (Replace TESTDIR in the following example with the directory where the pom.xml file exists)
+ - <b>CLASSPATH</b> - Replace TESTDIR in the following example with the directory where the pom.xml file resides
 
     `set CLASSPATH=.;TESTDIR\target\dependency;TESTDIR\target\deppendency\iijdbc-12.0-4.4.4.jar`
 
- - Set the environment variable DB_URL with an appropriate JDBC connection string for connecting to the database.
+ - <b>DB_URL</b> - Use a valid JDBC connection string
 
    `set DB_URL=jdbc:ingres://localhost:II7/iidbdb`
 
