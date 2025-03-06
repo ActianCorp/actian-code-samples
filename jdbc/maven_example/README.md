@@ -19,7 +19,7 @@ If needed, see these pages to download and install the latest version of Apache 
  - https://maven.apache.org/download.cgi?.
  - https://maven.apache.org/install.html
 
-### Set and Check Configuration
+### Set JDBC Driver Version
 
 Ensure that Maven is accessible by running: `mvn -version`
 
