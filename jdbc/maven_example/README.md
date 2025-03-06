@@ -44,16 +44,18 @@ If needed, run the following command to verify that your machine is able to acce
 
 After the maven build is finished, the class file and JDBC driver can be found under the `target` directory.
 
-### Run the JDBC program:
+### Set Environment Variables
 
  - Set the CLASSPATH environment variable
-   (In the show example, replace TESTDIR with the directory where the pom.xml file exists)
+   (Replace TESTDIR in the following example with the directory where the pom.xml file exists)
 
     `set CLASSPATH=.;TESTDIR\target\dependency;TESTDIR\target\deppendency\iijdbc-12.0-4.4.4.jar`
 
  - Set the environment variable DB_URL with an appropriate JDBC connection string for connecting to the database.
 
    `set DB_URL=jdbc:ingres://localhost:II7/iidbdb`
+
+### Run the JDBC Program
 
 Change to the directory target\classes and run the Java program:
 
