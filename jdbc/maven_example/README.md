@@ -1,6 +1,6 @@
 ## JDBC Example using Maven
 
-Example of using Maven to build a Java/JDBC program.
+Example of using Apache Maven to build a Java/JDBC program.
 Configration details in the pom.xml file allow the build process
 to automatically retrieve the Actian JDBC driver from the 
 Maven repository.
