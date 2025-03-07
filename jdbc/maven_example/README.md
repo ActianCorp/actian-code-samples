@@ -16,7 +16,7 @@ For Linux, use appropriate settings for the environment variables.
 
 See these pages to download and install the latest version of Apache Maven
 
- - https://maven.apache.org/download.cgi?.
+ - https://maven.apache.org/download.cgi
  - https://maven.apache.org/install.html
 
 Verify that your machine is able to access the Actian JDBC driver(s) in the maven repository.
