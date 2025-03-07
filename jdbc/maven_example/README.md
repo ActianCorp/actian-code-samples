@@ -1,9 +1,9 @@
 ## JDBC Example using Maven
 
 Example of using Apache Maven to build a Java/JDBC program.
-Configration details in the pom.xml file allow the build process
-to automatically retrieve the Actian JDBC driver from the 
-Maven repository.
+Configration details in the pom.xml file along with a Maven
+build option allow the build process to locate and retrieve
+the Actian JDBC driver from the Maven repository.
 
 Note: These instructions are written for the Windows platform.
 For Linux, use appropriate settings for the environment variables.
@@ -24,6 +24,8 @@ Verify that your machine is able to access the Actian JDBC driver(s) in the mave
     curl -I https://repo1.maven.org/maven2/com/ingres/jdbc/iijdbc/
 
 ### Build the Maven project
+
+Run the following command in the directory containing the `pom.xml` file.
 
     `mvn compile dependency:copy-dependencies`
 
