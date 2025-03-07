@@ -14,27 +14,12 @@ For Linux, use appropriate settings for the environment variables.
  - Apache Maven
  - Access to an existing Actian database (Ingres, Vector, Data Platform)
 
-If needed, see these pages to download and install the latest version of Apache Maven
+See these pages to download and install the latest version of Apache Maven
 
  - https://maven.apache.org/download.cgi?.
  - https://maven.apache.org/install.html
 
-### Set JDBC Driver Version
-
-Ensure that Maven is accessible by running: `mvn -version`
-
-Edit the `pom.xml` file to specify the JDBC driver version to be retrieved from the Maven repository.
-
-    <dependencies>
-      <dependency>
-        <groupId>com.ingres.jdbc</groupId>
-        <artifactId>iijdbc</artifactId>
-        <version>12.0-4.4.4</version>
-
-To see which Actian JDBC driver versions are available on Maven, go to:
-https://repo1.maven.org/maven2/com/ingres/jdbc/iijdbc/
-
-If needed, run the following command to verify that your machine is able to access the maven site.
+Verify that your machine is able to access the Actian JDBC driver(s) in the maven repository.
 
     curl -I https://repo1.maven.org/maven2/com/ingres/jdbc/iijdbc/
 
