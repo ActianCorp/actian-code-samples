@@ -1,0 +1,36 @@
+services:
+
+  # ── libodbc2 2.3.9 (Ubuntu default) ────────────────────────
+  # Start with:  docker compose --profile odbc2.3.9 up -d
+  ingres-client-env-odbc239:
+    image: actian-ingres-client-env-odbc2.3.9:latest
+    # Build locally instead of loading a tar (optional):
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile_odbc2.3.9
+    container_name: ingres-client-env
+    ports:
+      # Map host port 8090 to container port 80 (Apache).
+      # Change the left-hand number if 8090 is already in use.
+      - "8090:80"
+    restart: unless-stopped
+    profiles: ["odbc2.3.9"]
+    # Optional: mount a local PHP/web project into Apache's document root
+    # volumes:
+    #   - ./webroot:/var/www/html
+
+  # ── unixODBC 2.3.12 (built from source) ────────────────────
+  # Start with:  docker compose --profile odbc2.3.12 up -d
+  ingres-client-env-odbc2312:
+    image: actian-ingres-client-env-odbc2.3.12:latest
+    # Build locally instead of loading a tar (optional):
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile_odbc2.3.12
+    container_name: ingres-client-env
+    ports:
+      - "8090:80"
+    restart: unless-stopped
+    profiles: ["odbc2.3.12"]
+    # volumes:
+    #   - ./webroot:/var/www/html

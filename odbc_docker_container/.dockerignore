@@ -1,0 +1,5 @@
+# Exclude files that don't belong in the Docker build context
+README.md
+docker-compose.yml
+.gitignore
+*.md

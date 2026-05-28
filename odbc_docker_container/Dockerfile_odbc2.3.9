@@ -1,0 +1,89 @@
+FROM ubuntu:22.04
+
+LABEL maintainer="Actian Support" \
+      description="Test environment: Ubuntu 22.04 + Apache2 + PHP + libodbc2 2.3.9 + Actian Ingres Client 1.4.0"
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    TZ=UTC
+
+# ── Base packages ────────────────────────────────────────────
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        apache2 \
+        php \
+        libodbc2 \
+        php-odbc \
+        sudo \
+        adduser passwd \
+        libc6 libgcc-s1 libstdc++6 \
+        tar gzip coreutils procps \
+        grep sed gawk findutils util-linux \
+        curl ca-certificates net-tools vim lynx \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# ── Actian Ingres Client 1.4.0 ──────────────────────────────
+# Download URL (pre-signed token URL from the Actian ESD portal) is supplied
+# at build time (see build.sh). No credentials are required – the token
+# embedded in the URL is sufficient for authorisation.
+ARG ESD_DOWNLOAD_URL
+RUN : "${ESD_DOWNLOAD_URL:?Build arg ESD_DOWNLOAD_URL is required}" && \
+    curl -fSL \
+        "${ESD_DOWNLOAD_URL}" \
+        -o /tmp/actian-client.tgz && \
+    mkdir -p /opt/actian-install && \
+    tar -xzf /tmp/actian-client.tgz -C /opt/actian-install --strip-components=1 && \
+    cd /opt/actian-install && \
+    bash client_install.sh -express -acceptlicense && \
+    cd / && rm -rf /opt/actian-install /tmp/actian-client.tgz
+
+# Patch iisysdep so standard system tools stay in PATH
+RUN IISYSDEP=/opt/Actian/Actian_Client/ingres/utility/iisysdep && \
+    [ -f "$IISYSDEP" ] && \
+    sed -i '1 a # PATH fix\nexport PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH' \
+        "$IISYSDEP"
+
+# ── Environment ──────────────────────────────────────────────
+RUN printf '%s\n' \
+        '# Actian Ingres Client environment' \
+        '. /opt/Actian/Actian_Client/ingres/utility/iisysdep 2>/dev/null || true' \
+        'export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"' \
+    >> /etc/bash.bashrc && \
+    printf '%s\n' \
+        'II_SYSTEM=/opt/Actian/Actian_Client' \
+        'export TERM_INGRES=vt100fx' \
+        'PATH=/opt/Actian/Actian_Client/ingres/bin:/opt/Actian/Actian_Client/ingres/utility:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' \
+    >> /etc/environment
+
+# ── Apache configuration ─────────────────────────────────────
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
+    printf '%s\n' \
+        '' \
+        '# Actian Ingres ODBC environment' \
+        'export II_SYSTEM=/opt/Actian/Actian_Client' \
+        'export II_INSTALLATION=AC' \
+        'export LD_LIBRARY_PATH=/opt/Actian/Actian_Client/ingres/lib:/opt/Actian/Actian_Client/ingres/lib/lp64:/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH' \
+        'export II_ODBC_WCHAR_SIZE=2' \
+        'export ODBCINI=/opt/Actian/Actian_Client/ingres/files/odbc.ini' \
+        'export ODBCSYSINI=/opt/Actian/Actian_Client/ingres/files' \
+        'export II_ODBC_LOG=/var/www/html/logs/odbc_trace.log' \
+        'export II_ODBC_TRACE=5' \
+        'export II_GCA_TRACE=5' \
+    >> /etc/apache2/envvars && \
+    mkdir -p /var/www/html/logs && \
+    chown www-data:www-data /var/www/html/logs
+
+COPY odbc_php_update.php /var/www/html/odbc_php_update.php
+RUN chown www-data:www-data /var/www/html/odbc_php_update.php
+
+# Allow the actian user to manage Apache without a password
+RUN echo 'actian ALL=(ALL) NOPASSWD: /usr/sbin/apache2ctl, /usr/sbin/service' \
+        > /etc/sudoers.d/actian-apache && \
+    chmod 0440 /etc/sudoers.d/actian-apache
+
+# ── Entrypoint ───────────────────────────────────────────────
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 80
+ENTRYPOINT ["/entrypoint.sh"]
