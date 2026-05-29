@@ -1,5 +1,17 @@
 # Actian Ingres Client – Test Environment
 
+## Background / Purpose
+
+These Docker containers were created to reproduce and document the hanging DBMS session issue reported in Jira ticket **[II-18193](https://actian.atlassian.net/browse/II-18193)**.
+
+Testing confirmed that:
+- **unixODBC 2.3.9** – no hanging sessions observed.
+- **unixODBC 2.3.12** – hanging sessions are consistently reproduced, confirming the regression was introduced in version 2.3.12.
+
+The two images allow a direct side-by-side comparison of the two unixODBC versions against the same Actian Ingres Client and PHP environment.
+
+---
+
 ## Choose your version
 
 This README covers **both** ODBC versions. Wherever you see `<VERSION>` or `<IMAGE_NAME>`, substitute the values from the row that matches your image:
@@ -286,7 +298,7 @@ http://localhost:8090/odbc_php_update.php
 
 A successful connection prints the ODBC environment variables and executes a test UPDATE statement. If the connection fails, the page displays the ODBC error message.
 
-**Note:** For ODBC version 2.3.12, once the above page is registered, a hanging DBMS session should be observed. You can check this on the remote Ingres server using `ipm`.
+**Note:** For unixODBC 2.3.12, once the above page is loaded, a hanging DBMS session will be observed on the remote Ingres server (check with `ipm`). This is the regression reported in [II-18193](https://actian.atlassian.net/browse/II-18193). The same test with the unixODBC 2.3.9 image produces no hanging sessions, confirming that the issue was introduced in version 2.3.12.
 
 ---
 
