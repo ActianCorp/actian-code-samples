@@ -288,7 +288,29 @@ Save and exit (`Esc`, then `:wq` in vi).
 
 ---
 
-## Step 8 – Open the test page
+## Step 8 – Create the test table and data
+
+The PHP test page (`odbc_php_update.php`) executes an UPDATE against a table named **`tab`** in the `demodb` database. You must create this table and populate it with test data before opening the test page.
+
+Connect to the `demodb` database on the remote Ingres server (using `sql`, `isql`, or any Ingres SQL client) and run:
+
+```sql
+CREATE TABLE tab (col1 INTEGER, col2 INTEGER);
+INSERT INTO tab (col1, col2) VALUES (10, 100);
+INSERT INTO tab (col1, col2) VALUES (22, 22);
+```
+
+Verify the rows were inserted:
+
+```sql
+SELECT * FROM tab;
+```
+
+You should see two rows. The test UPDATE targets the row where `col1 = 22`.
+
+---
+
+## Step 9 – Open the test page
 
 Open a browser and go to:
 
@@ -302,7 +324,7 @@ A successful connection prints the ODBC environment variables and executes a tes
 
 ---
 
-## Step 9 – Place your own web content (optional)
+## Step 10 – Place your own web content (optional)
 
 Apache serves files from `/var/www/html` inside the container.
 
